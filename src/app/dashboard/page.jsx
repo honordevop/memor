@@ -111,9 +111,7 @@ const Dashboard = () => {
   // }
 
   if (session.status === "unauthenticated") {
-    setTimeout(() => {
-      router.push("/dashboard/login");
-    }, 10000);
+    router.push("/dashboard/login");
   }
 
   const handleSubmit = async (imgUrl) => {

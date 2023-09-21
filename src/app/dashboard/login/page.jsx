@@ -16,6 +16,9 @@ const LoginForm = () => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
+  const [err, setErr] = useState(false);
+
   const {
     value: email,
     isValid: emailIsValid,
@@ -51,17 +54,27 @@ const LoginForm = () => {
     //   return;
     // }
     try {
-      signIn("credentials", { email, password });
+      const res = signIn("credentials", { email, password });
+      const isAllowedToSignIn = true;
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        setErrMessage("Wrong Login Credentials");
+        setErr(true);
+        // Return false to display a default error message
+        return false;
+      }
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
 
-    setTimeout(
-      // router?.push("/dashboard"),
-      // router?.push("/dashboard");
-      setLoading(false),
-      10000
-    );
+    // setTimeout(
+    //   // router?.push("/dashboard"),
+    //   // router?.push("/dashboard");
+    //   setLoading(false),
+    //   10000
+    // );
   };
 
   // if (session.status === "loading") {
@@ -163,7 +176,7 @@ const LoginForm = () => {
             }}
           >
             <Button type="submit">Login </Button>
-            <div>
+            <div className="pl-[10px]">
               {loading && (
                 <BallTriangle
                   height={50}
@@ -179,6 +192,7 @@ const LoginForm = () => {
             </div>
           </div>
           <p className={`${styles["error-text"]} ${styles["login-error"]}`}>
+            {err && <p> {errMessage} </p>}
             {loginErrorMessage}
           </p>
         </form>
