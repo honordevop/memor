@@ -13,7 +13,7 @@ Additionally, the web app is under continuous development. Futher fetures to be 
 ## Getting Started (How to run the project locally)
 
 - First, Install Node on your PC.
-- Clone the repository to your local server by running git clone [URL to Clone]()
+- Clone the repository to your local server by running git clone [URL to Clone](https://github.com/honordevop/memor)
 - Open the cloned repository in a code editor and run `npm install` in the code editor's terminal to install all the dependencies.
 
 Finally, run the development server:
@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-View project live by clicking [Memor]()
+View project live by clicking [Memor](https://omemor.netlify.app/)
 
 Developed by Ogunlade Stephen Olayide
 HNGX Intenship Stage 3 Task.
