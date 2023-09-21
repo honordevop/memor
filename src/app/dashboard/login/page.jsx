@@ -7,6 +7,7 @@ import useError from "@/utils/useError";
 import { useState } from "react";
 import { Circles } from "react-loader-spinner";
 import { signIn, useSession } from "next-auth/react";
+import { BallTriangle } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -81,7 +82,7 @@ const LoginForm = () => {
     );
   }
 
-  console.log(loading);
+  // console.log(loading);
   if (session.status === "authenticated") {
     router?.push("/dashboard");
   }
@@ -149,7 +150,7 @@ const LoginForm = () => {
               <p className={styles["error-text"]}>Enter a valid Password</p>
             )}
             <a href="/" className={styles.passwordReset}>
-              <p>Forgot password?</p>
+              {/* <p>Forgot password?</p> */}
             </a>
           </div>
           <div
@@ -162,17 +163,20 @@ const LoginForm = () => {
             }}
           >
             <Button type="submit">Login </Button>
-            {/* {loading && (
-            <Circles
-              height="80"
-              width="80"
-              color="#4fa94d"
-              ariaLabel="circles-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-            />
-          )} */}
+            <div>
+              {loading && (
+                <BallTriangle
+                  height={50}
+                  width={50}
+                  radius={5}
+                  color="#4fa94d"
+                  ariaLabel="ball-triangle-loading"
+                  wrapperClass={{}}
+                  wrapperStyle=""
+                  visible={true}
+                />
+              )}
+            </div>
           </div>
           <p className={`${styles["error-text"]} ${styles["login-error"]}`}>
             {loginErrorMessage}
