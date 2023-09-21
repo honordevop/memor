@@ -1,0 +1,7 @@
+{
+  "http://www.gstatic.com/firebasejs/10.1.0/firebase-app.js": { "integrity": "sha512-nWCmkwitC7m1WQUCXcZg3AN8neYCqNc/r84T7Z3hV8rKgJxTleduuamrFhBeJHNHSXNpRdBGf6RXhpZSL9kTDA==", "contentType": "text/javascript; charset=UTF-8" },
+  "http://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js": { "integrity": "sha512-5GRYA/gq3bJHUoibx2l+2Ih2vIp+I4qjjX3gWn86kBmi7Aj7Y/zgvQH5ryeA+RsxWJwWypezdPm6d/+gMW4Hsg==", "contentType": "text/javascript; charset=UTF-8" },
+  "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js": { "integrity": "sha512-nWCmkwitC7m1WQUCXcZg3AN8neYCqNc/r84T7Z3hV8rKgJxTleduuamrFhBeJHNHSXNpRdBGf6RXhpZSL9kTDA==", "contentType": "text/javascript; charset=UTF-8" },
+  "https://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js": { "integrity": "sha512-5GRYA/gq3bJHUoibx2l+2Ih2vIp+I4qjjX3gWn86kBmi7Aj7Y/zgvQH5ryeA+RsxWJwWypezdPm6d/+gMW4Hsg==", "contentType": "text/javascript; charset=UTF-8" },
+  "version": 1
+}

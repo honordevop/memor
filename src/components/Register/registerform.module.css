@@ -1,0 +1,114 @@
+.form {
+  margin: 3rem auto;
+}
+.form-control {
+  margin: 0.5rem 0;
+}
+
+.form-control label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-control input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 20rem;
+  max-width: 100%;
+}
+
+.form-control input:focus {
+  outline: none;
+  background: #fad0ec;
+  border-color: #8b005d;
+}
+
+.form-control.invalid input {
+  border-color: red;
+  background: rgb(240, 198, 198);
+}
+
+/* .form-control.invalid label {
+    color: red;
+} */
+
+.container {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.error-text {
+  color: #b40e0e;
+}
+
+.login-error {
+  font-weight: bold;
+}
+
+.invalid input {
+  border: 1px solid #b40e0e;
+  background-color: #fddddd;
+}
+
+.invalid input:focus {
+  border-color: #ff8800;
+  background-color: #fbe8d2;
+}
+
+/* Error Section */
+
+/* *,
+*::before,
+*::after {
+  box-sizing: inherit;
+} */
+
+.error {
+  margin: 40vh auto;
+  width: 35rem;
+  background: white;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.errorHeader {
+  background-color: #8b005d;
+  padding: 1rem;
+  border-radius: 12px 12px 0 0;
+}
+
+.errorBody {
+  background: white;
+  padding: 1.5rem;
+}
+
+.erroBtn {
+  width: max-content;
+  align-self: flex-end;
+  margin: 1rem;
+}
+
+.passwordReset {
+  width: 100%;
+  /* text-align: right; */
+}
+
+.signUp {
+  color: rgb(87, 70, 70);
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.signUp span {
+  color: #8b005d;
+  font-weight: bold;
+}
