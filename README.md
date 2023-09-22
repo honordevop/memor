@@ -4,7 +4,7 @@ Memor is a dynamic gallery/ image viewing app that implemented authentication, a
 
 Additionally, the web app is under continuous development. Futher fetures to be implemented includes; image upload by user, image filter by tags and so on.
 
-### The Application was build with NextJS and Tailwind CSS
+### The Application was developed with NextJS, firebase, Mongodb, NextAuth and Tailwind CSS
 
 ### User data is been saved in a mongo db and future features implementation will utilize same database.
 
