@@ -49,11 +49,15 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (searchParams.get("error")) {
-      toast(searchParams.get("error"), {
-        hideProgressBar: true,
-        autoClose: 2000,
-        type: "success",
-      });
+      setLoginErr(searchParams.get("error"));
+      setTimeout(() => {
+        setLoginErr("");
+      }, 3000);
+      // toast(searchParams.get("error"), {
+      //   hideProgressBar: true,
+      //   autoClose: 2000,
+      //   type: "success",
+      // });
     }
   }, []);
 
@@ -161,6 +165,11 @@ const LoginForm = () => {
       <div className="flex flex-col h-[100vh] items-center justify-center">
         {/* {!loading && ( */}
         <form onSubmit={handleSubmit}>
+          <p
+            className={`${styles["error-text"]} ${styles["login-error"]} pb-2`}
+          >
+            {loginErr}
+          </p>
           <div className={emailInputClasses}>
             <label>Email</label>
             <input
