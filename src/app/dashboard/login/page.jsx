@@ -9,12 +9,10 @@ import { Circles } from "react-loader-spinner";
 import { signIn, useSession } from "next-auth/react";
 import { BallTriangle } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
+import { RotatingSquare } from "react-loader-spinner";
 import Link from "next/link";
 
 const LoginForm = () => {
-  const session = useSession();
-  const router = useRouter();
-
   const [loading, setLoading] = useState(false);
   const [errMessage, setErrMessage] = useState("");
   const [err, setErr] = useState(false);
@@ -42,6 +40,9 @@ const LoginForm = () => {
     setErrorMessage: setLoginErrorMessage,
   } = useError();
 
+  const session = useSession();
+  const router = useRouter();
+
   let formIsValid = emailIsValid && passwordIsValid;
 
   const handleSubmit = (e) => {
@@ -50,16 +51,21 @@ const LoginForm = () => {
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    // if (!formIsValid) {
-    //   return;
-    // }
+    if (!formIsValid) {
+      setLoginErrorMessage("Enter a valid email or password");
+      setLoading(false);
+      setTimeout(() => {
+        setLoginErrorMessage("");
+      }, 3000);
+      return;
+    }
     try {
       const res = signIn("credentials", { email, password });
       const isAllowedToSignIn = true;
       if (isAllowedToSignIn) {
         return true;
       } else {
-        setErrMessage("Wrong Login Credentials");
+        setLoginErrorMessage("Wrong Login Credentials");
         setErr(true);
         // Return false to display a default error message
         return false;
@@ -77,20 +83,19 @@ const LoginForm = () => {
     // );
   };
 
-  // if (session.status === "loading") {
-  if (loading) {
+  if (session.status === "loading") {
     return (
-      <div>
-        Loading ...
-        {/* <Circles
-            height="80"
-            width="80"
-            color="#4fa94d"
-            ariaLabel="circles-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          /> */}
+      <div className="absolute h-[100vh] w-[100vw] flex items-center justify-center z-20">
+        <RotatingSquare
+          height="100"
+          width="100"
+          color="#8B005D"
+          ariaLabel="rotating-square-loading"
+          strokeWidth="4"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
       </div>
     );
   }
@@ -134,9 +139,10 @@ const LoginForm = () => {
     ? `${styles["form-control"]} ${styles.invalid}`
     : styles["form-control"];
 
-  return (
-    <div className="flex flex-col h-[100vh] items-center justify-center">
-      {!loading && (
+  if (session.status === "unauthenticated") {
+    return (
+      <div className="flex flex-col h-[100vh] items-center justify-center">
+        {/* {!loading && ( */}
         <form onSubmit={handleSubmit}>
           <div className={emailInputClasses}>
             <label>Email</label>
@@ -175,33 +181,40 @@ const LoginForm = () => {
               marginTop: "1rem",
             }}
           >
-            <Button type="submit">Login </Button>
-            <div className="pl-[10px]">
-              {loading && (
-                <BallTriangle
-                  height={50}
-                  width={50}
-                  radius={5}
-                  color="#4fa94d"
-                  ariaLabel="ball-triangle-loading"
-                  wrapperClass={{}}
-                  wrapperStyle=""
-                  visible={true}
-                />
-              )}
+            <div>
+              <p
+                className={`${styles["error-text"]} ${styles["login-error"]} pb-2`}
+              >
+                {err && <p> {errMessage} </p>}
+                {loginErrorMessage}
+              </p>
+              <div className="flex gap-2">
+                <Button type="submit">Login </Button>
+                <span className="pl-[10px]">
+                  {loading && (
+                    <BallTriangle
+                      height={40}
+                      width={40}
+                      radius={4}
+                      color="#4fa94d"
+                      ariaLabel="ball-triangle-loading"
+                      wrapperClass={{}}
+                      wrapperStyle=""
+                      visible={true}
+                    />
+                  )}
+                </span>
+              </div>
             </div>
           </div>
-          <p className={`${styles["error-text"]} ${styles["login-error"]}`}>
-            {err && <p> {errMessage} </p>}
-            {loginErrorMessage}
-          </p>
         </form>
-      )}
-      <p className={styles.signUp}>
-        Don't have an account? <Link href="/dashboard/register">Sign Up</Link>
-      </p>
-    </div>
-  );
+        {/* )} */}
+        <p className={styles.signUp}>
+          Don't have an account? <Link href="/dashboard/register">Sign Up</Link>
+        </p>
+      </div>
+    );
+  }
 };
 
 export default LoginForm;

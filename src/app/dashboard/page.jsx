@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { RevolvingDot } from "react-loader-spinner";
+import { RotatingSquare } from "react-loader-spinner";
 import storage from "@/utils/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
@@ -106,9 +107,22 @@ const Dashboard = () => {
 
   // console.log(images);
 
-  // if (session.status === "loading") {
-  //   return <p>Authenticating User...</p>;
-  // }
+  if (session.status === "loading") {
+    return (
+      <div className="absolute h-[100vh] w-[100vw] flex items-center justify-center z-20">
+        <RotatingSquare
+          height="100"
+          width="100"
+          color="#8B005D"
+          ariaLabel="rotating-square-loading"
+          strokeWidth="4"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+  }
 
   if (session.status === "unauthenticated") {
     router.push("/dashboard/login");
@@ -162,85 +176,97 @@ const Dashboard = () => {
 
   // console.log(data);
   console.log(session);
-  // if (session.status === "authenticated") {
-  return (
-    <div>
-      <div className="flex  items-center justify-center w-full bg-pink-200 mt-[80px]">
-        <div className=" p-[120px] flex flex-col md:flex-row items-center justify-center gap-10">
-          <input
-            className="p-5 bg-slate-200"
-            type="file"
-            onChange={(event) => {
-              setImageUpload(event.target.files[0]);
-            }}
-          />
-          <Button disabled={true} onClick={uploadImage} className="font-bold">
-            <p className="p-2 font-bold">Upload Image</p>
-          </Button>
-          {/* <h1>Image Url</h1>
+  if (session.status === "authenticated") {
+    return (
+      <div>
+        <div className="flex  items-center justify-center w-full bg-pink-200 mt-[80px]">
+          <div className=" p-[120px] flex flex-col md:flex-row items-center justify-center gap-10">
+            <input
+              className="p-5 bg-slate-200"
+              type="file"
+              onChange={(event) => {
+                setImageUpload(event.target.files[0]);
+              }}
+            />
+            <Button disabled={true} onClick={uploadImage} className="font-bold">
+              <p className="p-2 font-bold">Upload Image</p>
+            </Button>
+            {/* <h1>Image Url</h1>
       <p>{imageUrl}</p>
       <img src={imageUrl} alt="" /> */}
+          </div>
+        </div>
+        <div className="">
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="data">
+              {(provided) => (
+                <div
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 bg-green-50 pt-[50px] px-[60px]"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {loading ? (
+                    <div className="flex w-[100vw] h-[100vh] z-20  bg-green-50 items-center justify-center absolute top-0 right-0">
+                      <RotatingSquare
+                        height="100"
+                        width="100"
+                        color="#8B005D"
+                        ariaLabel="rotating-square-loading"
+                        strokeWidth="4"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                      />
+                    </div>
+                  ) : (
+                    /*<div className="flex w-[100vw] h-[100vh] z-20  bg-green-50 items-center justify-center absolute top-0 right-0">
+                      <RevolvingDot
+                        radius="90"
+                        strokeWidth="10"
+                        color="#8b005d"
+                        secondaryColor="green"
+                        ariaLabel="revolving-dot-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                      />
+                    </div>*/
+                    images.map((image, index) => (
+                      <Draggable
+                        key={image.id}
+                        draggableId={image.id}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            className="w-max m-auto"
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            <div className="flex items-center justify-center pb-5 mr-2 w-max">
+                              <Image
+                                src={`${image.thumb}`}
+                                alt="new"
+                                width={200}
+                                height={120}
+                              />
+                              {/* <p>{image.imgtag}</p> */}
+                            </div>
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Draggable>
+                    ))
+                  )}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
       </div>
-      <div className="">
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="data">
-            {(provided) => (
-              <div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 bg-green-50 pt-[50px] px-[60px]"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {loading ? (
-                  <div className="flex w-[100vw] h-[100vh] z-20  bg-green-50 items-center justify-center absolute top-0 right-0">
-                    <RevolvingDot
-                      radius="90"
-                      strokeWidth="10"
-                      color="#8b005d"
-                      secondaryColor="green"
-                      ariaLabel="revolving-dot-loading"
-                      wrapperStyle={{}}
-                      wrapperClass=""
-                      visible={true}
-                    />
-                  </div>
-                ) : (
-                  images.map((image, index) => (
-                    <Draggable
-                      key={image.id}
-                      draggableId={image.id}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          className="w-max m-auto"
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <div className="flex items-center justify-center pb-5 mr-2 w-max">
-                            <Image
-                              src={`${image.thumb}`}
-                              alt="new"
-                              width={200}
-                              height={120}
-                            />
-                            {/* <p>{image.imgtag}</p> */}
-                          </div>
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))
-                )}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
-    </div>
-  );
+    );
+  }
 };
-// };
 
 export default Dashboard;
