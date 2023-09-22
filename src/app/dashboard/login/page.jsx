@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./page.module.css";
 import Button from "@/UI/Button";
+import { toast } from "react-toastify";
 import useInput from "@/utils/use-input";
+import { useSearchParams } from "next/navigation";
 import useError from "@/utils/useError";
 import { useState } from "react";
 import { Circles } from "react-loader-spinner";
@@ -16,6 +18,7 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [errMessage, setErrMessage] = useState("");
   const [err, setErr] = useState(false);
+  const [loginErr, setLoginErr] = useState("");
 
   const {
     value: email,
@@ -42,6 +45,19 @@ const LoginForm = () => {
 
   const session = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("error")) {
+      toast(searchParams.get("error"), {
+        hideProgressBar: true,
+        autoClose: 2000,
+        type: "success",
+      });
+    }
+  }, []);
+
+  // console.log(searchParams.get("error"));
 
   let formIsValid = emailIsValid && passwordIsValid;
 
@@ -61,6 +77,7 @@ const LoginForm = () => {
     }
     try {
       const res = signIn("credentials", { email, password });
+      console.log(res);
       const isAllowedToSignIn = true;
       if (isAllowedToSignIn) {
         return true;
