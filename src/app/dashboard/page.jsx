@@ -193,7 +193,7 @@ const Dashboard = () => {
     //   });
     // });
     const filteredImages = staticImages.filter((image) =>
-      image.tag.includes(searchTerm)
+      image.tag.includes(searchTerm.toLowerCase())
     );
     if (filteredImages.length <= 0) {
       toast("Searched Image Not Found", {
@@ -306,8 +306,10 @@ const Dashboard = () => {
                               <div className="p-1 flex text-white">
                                 <p className="flex bg-[#8B005D] h-[20px] text-white italics">
                                   <span className="mr-1">Tags: </span>
-                                  {image.tag?.map((tag) => (
-                                    <span className="mr-1">{tag}, </span>
+                                  {image.tag?.map((tag, index) => (
+                                    <span className="mr-1" key={index}>
+                                      {tag},{" "}
+                                    </span>
                                   ))}
                                 </p>
                               </div>
