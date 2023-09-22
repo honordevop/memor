@@ -170,7 +170,7 @@ const RegistrationForm = () => {
           )}
         </div>
         <div className={passwordCheckInputClasses}>
-          <label>Password </label>
+          <label>Re-Enter Password </label>
           <input
             type="password"
             value={passwordCheck}
