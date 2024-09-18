@@ -1,4 +1,4 @@
-## Memor
+## Memor Updated
 
 Memor is a dynamic gallery/ image viewing app that implemented authentication, and image drag and drop sorting features.
 
